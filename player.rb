@@ -3,12 +3,12 @@ class Player
   def initialize(game_window)
     @game_window = game_window
     @icon = Gosu::Image.new(@game_window, "images/ninja2.png", true)
-    @x = 70
-    @y = 150
+    @x = 300
+    @y = 400
   end
   
   def draw
-    @icon.draw(@x,@y,1)
+    @icon.draw(@x,@y,10)
   end
   
   def move_left
@@ -43,11 +43,13 @@ class Player
     end
   end
 
-  def hit_by?(balls)
-    balls.any? {|ball| Gosu::distance(@x, @y, ball.x, ball.y) < 50} 
+  def hit_by?(balls, knives)
+    balls.any? {|ball| Gosu::distance(@x, @y, ball.x, ball.y) < 30} or
+    knives.any? {|knife| Gosu::distance(@x, @y, knife.x, knife.y) < 20}
   end
+  
   def zombie
-    @icon = Gosu::Image.new(@game_window, "images/zombie.png", true)
+    @icon = Gosu::Image.new(@game_window, "images/deadninja.png", true)
   end
   def reset!
     @icon = Gosu::Image.new(@game_window, "images/ninja2.png", true)

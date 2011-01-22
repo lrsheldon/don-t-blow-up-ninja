@@ -2,15 +2,18 @@ require 'rubygems'
 require 'gosu'
 require 'player'
 require 'ball'
+require 'knife'
 
 class MyGame < Gosu::Window
   def initialize
-    super(1000, 1000, false)
+    super(800, 600, false)
     @player1 = Player.new(self)
-    @balls = 9.times.map {Ball.new(self)}
+    @balls = 10.times.map {Ball.new(self)}
+    @knives = 5.times.map {Knife.new(self)}
     @running = true
     @font = Gosu::Font.new(self, Gosu::default_font_name, 30)
     @score = 0
+    @background = Gosu::Image.new(self, "images/background.png", true)
   end
 
   def update
@@ -34,8 +37,9 @@ class MyGame < Gosu::Window
       
 
       @balls.each {|ball| ball.update}
+      @knives.each {|knife| knife.update}
 
-      if @player1.hit_by? @balls
+      if @player1.hit_by?(@balls, @knives)
         stop_game!
       end
 
@@ -47,14 +51,17 @@ class MyGame < Gosu::Window
   end
 
   def draw
+    @background.draw(0,0,1)
     @player1.draw
     @balls.each{|ball| ball.draw}
+    @knives.each{|knife| knife.draw}
     @font.draw("The Score is: #{@score}", 20,20,5)
   end
 
   def stop_game!
     @running = false
     @balls.each {|ball| ball.bloody_splatter}
+    @knives.each {|knife| knife.bloody_splatter}
     @player1.zombie
   end
 
@@ -62,6 +69,7 @@ class MyGame < Gosu::Window
     @score = 0
     @running = true
     @balls.each {|ball| ball.reset!}
+    @knives.each {|knife| knife.reset!}
     @player1.reset!
   end
 

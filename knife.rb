@@ -1,7 +1,7 @@
-class Ball
+class Knife
   def initialize(game_window)
     @game_window = game_window
-    @icon = Gosu::Image.new(@game_window, "images/star.png", true)
+    @icon = Gosu::Image.new(@game_window, "images/ninjaknife.png", true)
     @speed = rand(10)
     reset! 
   end
@@ -29,13 +29,14 @@ class Ball
   def reset!
     @y = 0
     @x = rand(@game_window.width)
-    ball
+    knife
   end
   
   def bloody_splatter
-    @icon = Gosu::Image.new(@game_window, "images/blood.png", true)
+    @icon = Gosu::Image.new(@game_window, "images/blood_splat.png", true)
   end
-  def ball
-    @icon = Gosu::Image.new(@game_window, "images/star.png", true)
+  
+  def knife
+    @icon = Gosu::Image.new(@game_window, "images/ninjaknife.png", true)
   end
 end
