@@ -9,7 +9,7 @@ class MyGame < Gosu::Window
     super(800, 600, false)
     @player1 = Player.new(self)
     @balls = 10.times.map {Ball.new(self)}
-    @knives = 5.times.map {Knife.new(self)}
+    @knives = 10.times.map {Knife.new(self)}
     @running = true
     @font = Gosu::Font.new(self, Gosu::default_font_name, 30)
     @score = 0
